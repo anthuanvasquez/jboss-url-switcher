@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       statusCard.classList.remove('matching');
     } else if (matches) {
       statusDot.className  = 'status-dot matching';
-      statusText.textContent = 'Este dominio será redirigido';
+      statusText.textContent = 'Dominio configurado — listo para redirigir';
       statusCard.classList.add('matching');
     } else {
       statusDot.className  = 'status-dot active';

@@ -62,56 +62,11 @@ async function updateBadgeForTab(tabId) {
   } catch {}
 }
 
-// Main redirect logic on tab navigation
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  // Update badge on any URL change
-  if (changeInfo.url) {
+// Update badge on tab navigation (no auto-redirect)
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  if (changeInfo.url || changeInfo.status === 'complete') {
     updateBadgeForTab(tabId);
   }
-
-  // Only process redirect when page starts loading
-  if (changeInfo.status !== 'loading') return;
-  if (!tab.url) return;
-
-  const settings = await chrome.storage.sync.get(['enabled', 'sourceDomains', 'targetDomain']);
-
-  if (!settings.enabled || !settings.sourceDomains || !settings.targetDomain) {
-    updateBadgeForTab(tabId);
-    return;
-  }
-
-  if (!checkUrlMatches(tab.url, settings.sourceDomains)) {
-    updateBadgeForTab(tabId);
-    return;
-  }
-
-  let url;
-  try {
-    url = new URL(tab.url);
-  } catch {
-    return;
-  }
-
-  const targetDomain = settings.targetDomain
-    .trim()
-    .replace(/^https?:\/\//, '')
-    .replace(/\/$/, '');
-
-  // Anti-loop: skip if already on the target host
-  const targetHost = targetDomain.split(':')[0].toLowerCase();
-  if (url.hostname.toLowerCase() === targetHost) return;
-
-  const newUrl = `http://${targetDomain}${url.pathname}${url.search}${url.hash}`;
-
-  // Double-check: don't redirect to the same URL
-  if (newUrl === tab.url) return;
-
-  // Save last staging URL for "go back" feature
-  try {
-    await chrome.storage.session.set({ lastStagingUrl: tab.url });
-  } catch {}
-
-  chrome.tabs.update(tabId, { url: newUrl });
 });
 
 // Update badge when user switches tabs
