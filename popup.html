@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JBoss URL Switcher</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo">
+        <span class="logo-icon">⇄</span>
+        <span class="logo-text">JBoss URL Switcher</span>
+      </div>
+      <div class="shortcut-hint" title="Atajo de teclado para toggle">Alt+Shift+J</div>
+    </header>
+
+    <!-- Status + Toggle -->
+    <div class="status-card" id="statusCard">
+      <div class="status-indicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">Verificando...</span>
+      </div>
+      <label class="toggle-switch" title="Activar/desactivar redirección">
+        <input type="checkbox" id="enabledToggle">
+        <span class="toggle-slider"></span>
+        <span class="toggle-label" id="toggleLabel">Desactivado</span>
+      </label>
+    </div>
+
+    <!-- Redirect now (visible when on matching domain and enabled) -->
+    <div id="redirectNowSection" class="action-section hidden">
+      <button class="btn btn-warning" id="redirectNowBtn">
+        ↪ Redirigir esta página ahora
+      </button>
+    </div>
+
+    <!-- Back to staging (visible when lastStagingUrl exists) -->
+    <div id="backToStagingSection" class="action-section hidden">
+      <button class="btn btn-secondary" id="backToStagingBtn">
+        ← Volver a staging
+      </button>
+      <span class="back-url" id="backUrl"></span>
+    </div>
+
+    <!-- Configuration -->
+    <div class="config-section">
+      <h3 class="section-title">Configuración</h3>
+
+      <div class="field-group">
+        <label for="sourceDomains">Dominios origen (uno por línea):</label>
+        <textarea
+          id="sourceDomains"
+          rows="4"
+          placeholder="staging.miapp.com&#10;dev.miapp.com&#10;pre.miapp.com"
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="targetDomain">Dominio destino (JBoss local):</label>
+        <input
+          type="text"
+          id="targetDomain"
+          placeholder="localhost:8090"
+          spellcheck="false"
+        >
+      </div>
+
+      <button class="btn btn-primary" id="saveBtn">Guardar</button>
+      <span class="save-feedback" id="saveFeedback"></span>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
