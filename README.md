@@ -33,14 +33,14 @@ Esta extensión automatiza el paso 2: detecta cuándo estás en un dominio confi
 1. Abrí `chrome://extensions` en el navegador
 2. Activá el **Modo desarrollador** (switch en la esquina superior derecha)
 3. Hacé click en **Cargar descomprimida**
-4. Seleccioná la carpeta `reload-jboss`
+4. Seleccioná la carpeta `jboss-url-switcher`
 
 ### Edge
 
 1. Abrí `edge://extensions` en el navegador
 2. Activá el **Modo de desarrollador** (switch en el panel izquierdo)
 3. Hacé click en **Cargar descomprimida**
-4. Seleccioná la carpeta `reload-jboss`
+4. Seleccioná la carpeta `jboss-url-switcher`
 
 > La extensión aparecerá en la barra de herramientas con el ícono **J** azul. Si no aparece, fijala desde el menú de extensiones (ícono de puzzle).
 
@@ -102,7 +102,7 @@ Esta extensión automatiza el paso 2: detecta cuándo estás en un dominio confi
 ## Estructura del proyecto
 
 ```
-reload-jboss/
+jboss-url-switcher/
 ├── manifest.json       # Configuración de la extensión (Manifest V3)
 ├── background.js       # Service worker: lógica de redirección y badge
 ├── popup.html          # Interfaz del popup
